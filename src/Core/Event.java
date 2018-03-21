@@ -16,8 +16,6 @@ public abstract class Event implements Comparable<Event> {
     public Event(SimulationCore core, double startTime ) {
         this.Core = core;
         this.StartTime = core.getCurrentTime() + startTime;
-        //this.Time = core.getCurrentTime();
-        //number= core.incActivity();
     }
 
     public SimulationCore getCore() {

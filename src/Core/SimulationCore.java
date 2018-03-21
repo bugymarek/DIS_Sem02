@@ -6,6 +6,7 @@
 package Core;
 
 import Generators.ExponentialDistribution;
+import Generators.UniformRangeDistribution;
 import java.util.PriorityQueue;
 import java.util.Random;
 
@@ -98,6 +99,10 @@ public abstract class SimulationCore {
     
     public ExponentialDistribution getExponentialDistribution(double lampda){
         return new ExponentialDistribution(new Random(GenSeeds.nextInt()), lampda);
+    }
+    
+    public UniformRangeDistribution getUniformRangeDistribution(double upperLimit, double lowerLimit){
+            return new UniformRangeDistribution(upperLimit, lowerLimit, new Random(GenSeeds.nextInt()));
     }
 
     public double getReplicationsCount() {
