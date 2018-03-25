@@ -13,6 +13,8 @@ package Constants;
 public class Constants {
     
 //  all constants are represented as minute unit
+    
+    public static double Now = 0;
   
     public static double LampdaArrivalT1 = 1.0 / (60.0 /43.0);
     public static double LampdaArrivalT2 = 1.0 / (60.0 /19.0);
