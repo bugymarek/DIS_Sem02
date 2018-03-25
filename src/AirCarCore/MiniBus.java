@@ -13,10 +13,11 @@ import java.util.LinkedList;
  */
 public class MiniBus {
     private final LinkedList<Customer> Customers;
-    private String Possition;
+    private int ID;
 
-    public MiniBus() {
+    public MiniBus(int id) {
         this.Customers = new LinkedList<>();
+        this.ID = id;
     }
     
     public Customer getCustomerFromBus(){
@@ -35,11 +36,19 @@ public class MiniBus {
         return Customers.size()<12;
     }
 
-    public void setPossition(String Possition) {
-        this.Possition = Possition;
+    public int getID() {
+        return ID;
     }
-
-    public String getPossition() {
-        return Possition;
+    
+    public int getSize(){
+        return Customers.size();
+    }
+    
+    public String getCustomersInBus(){
+        String arr = "";
+        for (Customer Customer : Customers) {
+              arr += " ," + Customer.getTerminalAndID();
+        }
+        return arr;
     }
 }

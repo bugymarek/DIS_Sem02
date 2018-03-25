@@ -22,11 +22,11 @@ public class StartBoardingT2 extends AirCarEvent {
 
     @Override
     public void execute() {
-        if (getMiniBus().isPlaceInBus() && !getCore().isEmptyCustomersQueueT1()) {
+        if (getMiniBus().isPlaceInBus() && !getCore().isEmptyCustomersQueueT2()) {
             double boardingTime = getCore().getRndBoardToBus().next();
-            getCore().plainEvent(new EndBoardingT2(getCore(), boardingTime, getMiniBus()));
+            getCore().plainEvent(new EndBoardingT2(getCore(), boardingTime, getMiniBus(), getCore().getCustomerFromQueueT2()));
         } else {
-            getCore().plainEvent(new ArrivalAirCar(getCore(), LengtT2ToRental, getMiniBus()));
+            getCore().plainEvent(new ArrivalMiniBusAirCar(getCore(), LengtT2ToRental, getMiniBus()));
         }
     }
 

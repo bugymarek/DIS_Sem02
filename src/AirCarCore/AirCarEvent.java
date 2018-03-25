@@ -35,6 +35,13 @@ public abstract class AirCarEvent extends Event {
         this.Core = core;
         this.MiniBus = minibus;
     }
+    
+    public AirCarEvent(AirCarCore core, double startTime, MiniBus minibus, Customer customer) {
+        super(core, startTime);
+        this.Core = core;
+        this.MiniBus = minibus;
+        this.Customer = customer;
+    }
 
     public Customer getCustomer() {
         return Customer;

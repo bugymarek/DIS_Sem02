@@ -12,7 +12,7 @@ package Constants;
  */
 public class Constants {
     
-//  all constants are represented as minute unit
+//  all constants are represented as minute units
     
     public static double Now = 0;
   
@@ -32,6 +32,7 @@ public class Constants {
     public static double LengtT1ToT2 = 60.0 / 35.0 * 0.5;
     public static double LengtT2ToRental = 60.0 / 35.0 * 2.5;
     
-    public static double Interval = 1.645; 
+    public static double Interval = 1.645;
+    public static double SimulationTime = 30*24*60;
     
 }

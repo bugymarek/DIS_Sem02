@@ -24,7 +24,7 @@ public class ArrivalCustomerT2 extends AirCarEvent{
     public void execute() {
         getCustomer().setArrivalTime(getCore().getCurrentTime());
         
-        //System.out.println("Zakaznik: " + getCustomer().getTerminalAndID() + "| Prichod zakaznika v cese: " + (getCore().getCurrentTime()));
+//        System.out.println("Zakaznik: " + getCustomer().getTerminalAndID() + "| Prichod zakaznika v cese: " + (getCore().getCurrentTime()));
         getCore().addToCustomersQueueT2(getCustomer());
         
         double arrivalTime = getCore().getRndArrivalT2().next();

@@ -5,6 +5,9 @@
  */
 package AirCarCore;
 
+import AirCarEvents.ArrivalCustomerT1;
+import AirCarEvents.ArrivalCustomerT2;
+import AirCarEvents.DepartureMiniBusAirCar;
 import Core.SimulationCore;
 import Generators.ExponentialDistribution;
 import Generators.UniformRangeDistribution;
@@ -30,16 +33,18 @@ public class AirCarCore extends SimulationCore {
     private final UniformRangeDistribution RndDropFromBus;
     private final UniformRangeDistribution RndOperating;
     private double sumAllWaitingTimes;
+    private final int MiniBusCount;
 
-    public AirCarCore(int operatorsCount) {
+    public AirCarCore(int miniBusCount, int operatorsCount) {
         super();
+        this.MiniBusCount = miniBusCount;
         fillOperatorsArr(operatorsCount);
         this.RndArrivalT1 = super.getExponentialDistribution(LampdaArrivalT1); 
         this.RndArrivalT2 = super.getExponentialDistribution(LampdaArrivalT2);
         this.RndBoardToBus = super.getUniformRangeDistribution(BoardingUpperLimit, BoardingLowerLimit);
         this.RndDropFromBus = super.getUniformRangeDistribution(GetOutOfBusUpperLimit, GetOutOfBusLowerLimit);
         this.RndOperating = super.getUniformRangeDistribution(OperatingUpperLimit, OperatingLowerLimit);
-        this.sumAllWaitingTimes = 0;
+        this.sumAllWaitingTimes = 0;      
     }
 
     @Override
@@ -49,6 +54,14 @@ public class AirCarCore extends SimulationCore {
         this.CustomersQueueT1 = new LinkedList<>();
         this.CustomersQueueT2 = new LinkedList<>();
         this.CustomersQueueRental = new LinkedList<>();
+        for (int i = 0; i < MiniBusCount; i++) {
+            plainEvent(new DepartureMiniBusAirCar(this, Now, new MiniBus(i)));
+        }
+        for (Operator o : this.ArrOperators) {
+            o.setOccupied(false);
+        }
+        plainEvent(new ArrivalCustomerT1(this, RndArrivalT1.next(), new Customer(0, "T1")));
+        plainEvent(new ArrivalCustomerT2(this, RndArrivalT2.next(), new Customer(0, "T2")));
     }
 
     @Override
@@ -61,7 +74,7 @@ public class AirCarCore extends SimulationCore {
     } 
 
     private void fillOperatorsArr(int operators){
-        this.ArrOperators = new ArrayList<Operator>();
+        this.ArrOperators = new ArrayList<>();
         for (int i = 0; i < operators; i++) {
             this.ArrOperators.add(new Operator());
         }

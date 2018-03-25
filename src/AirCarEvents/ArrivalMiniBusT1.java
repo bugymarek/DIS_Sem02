@@ -22,6 +22,9 @@ public class ArrivalMiniBusT1 extends AirCarEvent {
 
     @Override
     public void execute() {
+//        System.out.print("Minibus: " + getMiniBus().getID()+ "| Prichod na T1 v cese: " + (getCore().getCurrentTime()));
+//        System.out.println(" Pasažieri: " + getMiniBus().getCustomersInBus()+ " pocet: " + getMiniBus().getSize());
+//        
         if(getCore().isEmptyCustomersQueueT1()){
             getCore().plainEvent(new ArrivalMiniBusT2(getCore(), LengtT1ToT2, getMiniBus()));
         } else {
