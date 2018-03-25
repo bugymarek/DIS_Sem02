@@ -9,7 +9,7 @@ package AirCarCore;
  *
  * @author Bugy
  */
-class Customer {
+public class Customer {
     private double ArrivalTime;
     private int ID;
     private String Terminal;

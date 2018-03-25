@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AirCarCore;
+package AirCarEvents;
 
+import AirCarCore.AirCarCore;
+import AirCarCore.AirCarEvent;
+import AirCarCore.MiniBus;
 import static Constants.Constants.*;
 
 /**
  *
  * @author Bugy
  */
-public class StartBoardingT2 extends AirCarEvent {
+public class ArrivalMiniBusT2 extends AirCarEvent{
 
-    public StartBoardingT2(AirCarCore core, double startTime, MiniBus minibus) {
+    public ArrivalMiniBusT2(AirCarCore core, double startTime, MiniBus minibus) {
         super(core, startTime, minibus);
     }
 
     @Override
     public void execute() {
-        if (getMiniBus().isPlaceInBus() && !getCore().isEmptyCustomersQueueT1()) {
-            double boardingTime = getCore().getRndBoardToBus().next();
-            getCore().plainEvent(new EndBoardingT2(getCore(), boardingTime, getMiniBus()));
-        } else {
+       if(getCore().isEmptyCustomersQueueT2() || !getMiniBus().isPlaceInBus()){
             getCore().plainEvent(new ArrivalAirCar(getCore(), LengtT2ToRental, getMiniBus()));
+        } else {
+            getCore().plainEvent(new StartBoardingT2(getCore(), Now, getMiniBus()));
         }
     }
-
+    
 }

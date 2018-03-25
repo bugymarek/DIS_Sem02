@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AirCarCore;
+package AirCarEvents;
 
+import AirCarCore.AirCarCore;
+import AirCarCore.AirCarEvent;
+import AirCarCore.MiniBus;
 import static Constants.Constants.*;
 
 /**

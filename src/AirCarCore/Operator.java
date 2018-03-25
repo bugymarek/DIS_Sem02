@@ -13,7 +13,7 @@ public class Operator {
     private boolean Occupied;
 
     public Operator() {
-        this.Occupied = true;
+        this.Occupied = false;
     }
 
     

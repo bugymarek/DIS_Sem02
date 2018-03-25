@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AirCarCore;
+package AirCarEvents;
 
+import AirCarCore.AirCarCore;
+import AirCarCore.AirCarEvent;
+import AirCarCore.MiniBus;
+import static Constants.Constants.*;
 /**
  *
  * @author Bugy
@@ -17,7 +21,11 @@ public class ArrivalAirCar extends AirCarEvent{
 
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(getMiniBus().isEmpty()){
+            getCore().plainEvent(new ArrivalAirCar(getCore(), Now, getMiniBus())); 
+        } else {
+            getCore().plainEvent(new StartGetOutOfBus(getCore(), Now, getMiniBus()));
+        }
     }
     
 }

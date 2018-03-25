@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class AirCarCore extends SimulationCore {
 
-    private ArrayList<MiniBus> ArrMiniBuses;
     private ArrayList<Operator> ArrOperators;
     private LinkedList<Customer> CustomersQueueT1;
     private LinkedList<Customer> CustomersQueueT2;
@@ -29,16 +28,17 @@ public class AirCarCore extends SimulationCore {
     private final ExponentialDistribution RndArrivalT2;
     private final UniformRangeDistribution RndBoardToBus;
     private final UniformRangeDistribution RndDropFromBus;
-    private final UniformRangeDistribution RndOccupied;
+    private final UniformRangeDistribution RndOperating;
     private double sumAllWaitingTimes;
 
-    public AirCarCore() {
+    public AirCarCore(int operatorsCount) {
         super();
+        fillOperatorsArr(operatorsCount);
         this.RndArrivalT1 = super.getExponentialDistribution(LampdaArrivalT1); 
         this.RndArrivalT2 = super.getExponentialDistribution(LampdaArrivalT2);
         this.RndBoardToBus = super.getUniformRangeDistribution(BoardingUpperLimit, BoardingLowerLimit);
-        this.RndDropFromBus = super.getUniformRangeDistribution(DropingUpperLimit, DropingLowerLimit);
-        this.RndOccupied = super.getUniformRangeDistribution(OccupiedUpperLimit, OccupiedLowerLimit);
+        this.RndDropFromBus = super.getUniformRangeDistribution(GetOutOfBusUpperLimit, GetOutOfBusLowerLimit);
+        this.RndOperating = super.getUniformRangeDistribution(OperatingUpperLimit, OperatingLowerLimit);
         this.sumAllWaitingTimes = 0;
     }
 
@@ -46,8 +46,6 @@ public class AirCarCore extends SimulationCore {
     public void beforeSimulation() {
         this.customersCount = 0;
         this.sumWaitingTimes = 0;
-        this.ArrMiniBuses = new ArrayList<MiniBus>();
-        this.ArrOperators = new ArrayList<Operator>();
         this.CustomersQueueT1 = new LinkedList<>();
         this.CustomersQueueT2 = new LinkedList<>();
         this.CustomersQueueRental = new LinkedList<>();
@@ -62,6 +60,21 @@ public class AirCarCore extends SimulationCore {
         return this.sumAllWaitingTimes;
     } 
 
+    private void fillOperatorsArr(int operators){
+        this.ArrOperators = new ArrayList<Operator>();
+        for (int i = 0; i < operators; i++) {
+            this.ArrOperators.add(new Operator());
+        }
+    }
+    
+    public Operator getFreeOperator(){
+        for (Operator o : this.ArrOperators) {
+            if(!o.isOccupied()){
+                return o;
+            }
+        }
+        return null;
+    }
 
     public void addWatingTime(double time) {
         this.sumWaitingTimes += time;
@@ -90,8 +103,8 @@ public class AirCarCore extends SimulationCore {
         return this.RndDropFromBus;
     }
 
-    public UniformRangeDistribution getRndOccupied() {
-        return this.RndOccupied;
+    public UniformRangeDistribution getRndOperating() {
+        return this.RndOperating;
     }
     
     public void addToCustomersQueueT1(Customer cus){
@@ -124,5 +137,9 @@ public class AirCarCore extends SimulationCore {
     
     public boolean isEmptyCustomersQueueT2(){
         return this.CustomersQueueT2.isEmpty();
+    }
+    
+    public boolean isEmptyCustomersQueueRental(){
+        return this.CustomersQueueRental.isEmpty();
     }
 }

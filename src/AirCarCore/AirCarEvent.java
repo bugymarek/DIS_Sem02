@@ -6,7 +6,6 @@
 package AirCarCore;
 
 import Core.Event;
-import Core.SimulationCore;
 
 /**
  *
@@ -24,10 +23,11 @@ public abstract class AirCarEvent extends Event {
         this.Customer = customer;
     } 
     
-    public AirCarEvent(AirCarCore core, double startTime, Operator operator) {
+    public AirCarEvent(AirCarCore core, double startTime, Operator operator, Customer customer) {
         super(core, startTime);
         this.Core = core;
         this.Operator = operator;
+        this.Customer = customer;
     }
     
     public AirCarEvent(AirCarCore core, double startTime, MiniBus minibus) {
