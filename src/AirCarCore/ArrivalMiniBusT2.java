@@ -1,0 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package AirCarCore;
+
+/**
+ *
+ * @author Bugy
+ */
+public class ArrivalMiniBusT2 extends AirCarEvent{
+
+    public ArrivalMiniBusT2(AirCarCore core, double startTime, MiniBus minibus) {
+        super(core, startTime, minibus);
+    }
+
+    @Override
+    public void execute() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}

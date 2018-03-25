@@ -13,6 +13,7 @@ import java.util.LinkedList;
  */
 public class MiniBus {
     private final LinkedList<Customer> Customers;
+    private String Possition;
 
     public MiniBus() {
         this.Customers = new LinkedList<>();
@@ -32,5 +33,13 @@ public class MiniBus {
     
     public boolean isPlaceInBus(){
         return Customers.size()<12;
+    }
+
+    public void setPossition(String Possition) {
+        this.Possition = Possition;
+    }
+
+    public String getPossition() {
+        return Possition;
     }
 }
