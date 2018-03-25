@@ -5,6 +5,8 @@
  */
 package AirCarCore;
 
+import static Constants.Constants.*;
+
 /**
  *
  * @author Bugy
@@ -17,7 +19,11 @@ public class ArrivalMiniBusT2 extends AirCarEvent{
 
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(getCore().isEmptyCustomersQueueT2() || !getMiniBus().isPlaceInBus()){
+            getCore().plainEvent(new ArrivalAirCar(getCore(), LengtT2ToRental, getMiniBus()));
+        } else {
+            getCore().plainEvent(new StartBoardingT2(getCore(), Now, getMiniBus()));
+        }
     }
     
 }

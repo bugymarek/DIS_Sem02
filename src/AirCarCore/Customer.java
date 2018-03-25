@@ -12,9 +12,11 @@ package AirCarCore;
 class Customer {
     private double ArrivalTime;
     private int ID;
+    private String Terminal;
 
-    public Customer(int id) {
+    public Customer(int id, String terminal) {
         this.ID = id;
+        this.Terminal = terminal;
     }
 
     public int getID() {
@@ -23,6 +25,10 @@ class Customer {
     
     public void setID(int id){
         this.ID = id;
+    }
+    
+    public String getTerminalAndID(){
+        return this.Terminal + "/" + this.ID;
     }
 
     public void setArrivalTime(double ArrivalTime) {
