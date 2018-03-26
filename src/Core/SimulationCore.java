@@ -26,14 +26,16 @@ public abstract class SimulationCore {
     private double MinValue;
     private double MaxValue;
     private Random GenSeeds;
+    private boolean Cooling;
     
-    public SimulationCore() {
+    public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
         this.GenSeeds = new Random(100);
         this.CurrentTime = 0;
         this.Command = null;
         this.Success = 0;
         this.Runnable = true;
+        this.Cooling = cooling;
     }  
 
     public void doReprications(double count, double endSimulationTime) {
@@ -56,10 +58,12 @@ public abstract class SimulationCore {
     
     private void simulate(double endSimulationTime) {
        Event temporaryEvent;
-       while(CurrentTime <= endSimulationTime && !CalendarEvents.isEmpty() && Runnable){
+       while((Cooling || CurrentTime <= endSimulationTime) && !CalendarEvents.isEmpty() && Runnable){
            temporaryEvent = CalendarEvents.poll();
            CurrentTime = temporaryEvent.getStartTime();
-           if(CurrentTime > endSimulationTime) break;
+           if(!Cooling){
+             if(CurrentTime > endSimulationTime) break;  
+           }        
            temporaryEvent.execute();
        }
     }

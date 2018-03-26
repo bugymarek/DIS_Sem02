@@ -35,8 +35,8 @@ public class AirCarCore extends SimulationCore {
     private double sumAllWaitingTimes;
     private final int MiniBusCount;
 
-    public AirCarCore(int miniBusCount, int operatorsCount) {
-        super();
+    public AirCarCore(int miniBusCount, int operatorsCount, boolean cooling) {
+        super(cooling);
         this.MiniBusCount = miniBusCount;
         fillOperatorsArr(operatorsCount);
         this.RndArrivalT1 = super.getExponentialDistribution(LampdaArrivalT1); 

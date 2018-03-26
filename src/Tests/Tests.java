@@ -24,7 +24,7 @@ public class Tests {
     }   
     
     public static void mySimulationCoreTest(){
-        AirCarCore msc = new AirCarCore(5,20);
+        AirCarCore msc = new AirCarCore(5,20, true);
         Command c = new Command() {
             @Override
              public void run() {
