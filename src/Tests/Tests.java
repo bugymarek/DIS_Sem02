@@ -6,7 +6,7 @@
 package Tests;
 
 import AirCarCore.AirCarCore;
-import static Constants.Constants.SimulationTime;
+import static Constants.Constants.*;
 import Core.Command;
 import java.util.LinkedList;
 
@@ -21,6 +21,8 @@ public class Tests {
      */
     public static void main(String[] args) {
         mySimulationCoreTest();
+        
+        testConstants();
     }   
     
     public static void mySimulationCoreTest(){
@@ -30,12 +32,27 @@ public class Tests {
              public void run() {
                  //double current = msc.getCurrentTime();
                  //System.out.println(msc.getCustomersString());
-                     System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment()/60);
+                 System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment()/60);
                              
             }
         };
         msc.setCommand(c);      
         msc.doReprications(30, SimulationTime);
+    }
+
+    private static void testConstants() {
+        System.out.println("LampdaArrivalT1: " + LampdaArrivalT1);
+        System.out.println("LampdaArrivalT1: " + LampdaArrivalT2);
+        System.out.println("BoardingLowerLimit: " + BoardingLowerLimit);
+        System.out.println("BoardingUpperLimit: " + BoardingUpperLimit);
+        System.out.println("GetOutOfBusLowerLimit: " + GetOutOfBusLowerLimit);
+        System.out.println("GetOutOfBusUpperLimit: " + GetOutOfBusUpperLimit);
+        System.out.println("LengtRentalToT1: " + LengtRentalToT1);
+        System.out.println("LengtT1ToT2: " + LengtT1ToT2);
+        System.out.println("LengtT2ToRental: " + LengtT2ToRental);
+        System.out.println("OperatingLowerLimit: " +  OperatingLowerLimit);
+        System.out.println("OperatingUpperLimit: " + OperatingUpperLimit);
+        System.out.println("SimulationTime: " + SimulationTime);
     }
     
 }

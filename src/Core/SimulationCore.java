@@ -31,6 +31,7 @@ public abstract class SimulationCore {
     private Random GenSeeds;
     private boolean Cooling;
     private boolean Pause;
+    private final int Modulo = 1;
 
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
@@ -56,7 +57,7 @@ public abstract class SimulationCore {
                 break;
             }
             afterSimulation();
-            if (this.Command != null) {
+            if (this.Command != null && i%Modulo == 0) {
                 Command.run();
             }
         }
@@ -126,7 +127,7 @@ public abstract class SimulationCore {
     }
 
     public void startSteps() {
-        //plainEvent(new Stepper(this, CurrentTime));
+        plainEvent(new Stepper(this, CurrentTime));
     }
 
     public abstract void beforeSimulation();

@@ -28,6 +28,7 @@ public class Stepper extends Event{
             Logger.getLogger(Stepper.class.getName()).log(Level.SEVERE, null, ex);
         }
         getCore().plainEvent(new Stepper(getCore(), getCore().getStep()));
+        System.out.println(getCore().getStep());
     }
     
 }
