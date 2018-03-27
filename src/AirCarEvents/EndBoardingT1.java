@@ -28,6 +28,7 @@ public class EndBoardingT1 extends AirCarEvent{
         if(getMiniBus().isPlaceInBus() && !getCore().isEmptyCustomersQueueT1()){
             getCore().plainEvent(new StartBoardingT1(getCore(), Now, getMiniBus(), getCore().getCustomerFromQueueT1()));
         } else {
+            getMiniBus().setPosition("Cestujem z T1 do T2");
             getCore().plainEvent(new ArrivalMiniBusT2(getCore(), LengtT1ToT2, getMiniBus()));
         }
     }

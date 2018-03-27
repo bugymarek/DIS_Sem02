@@ -26,7 +26,8 @@ public class AirCarCore extends SimulationCore {
     private LinkedList<Customer> CustomersQueueT2;
     private LinkedList<Customer> CustomersQueueRental;
     private double sumWaitingTimes;
-    private double customersCount;
+    private double DepartureCustomersCount;
+    private double ArrivalCustomersCount;
     private final ExponentialDistribution RndArrivalT1;
     private final ExponentialDistribution RndArrivalT2;
     private final UniformRangeDistribution RndBoardToBus;
@@ -34,28 +35,35 @@ public class AirCarCore extends SimulationCore {
     private final UniformRangeDistribution RndOperating;
     private double sumAllWaitingTimes;
     private final int MiniBusCount;
+    private ArrayList<MiniBus> ArrMiniBuses;
 
     public AirCarCore(int miniBusCount, int operatorsCount, boolean cooling) {
         super(cooling);
         this.MiniBusCount = miniBusCount;
+        this.ArrMiniBuses = new ArrayList<>();
         fillOperatorsArr(operatorsCount);
         this.RndArrivalT1 = super.getExponentialDistribution(LampdaArrivalT1); 
         this.RndArrivalT2 = super.getExponentialDistribution(LampdaArrivalT2);
         this.RndBoardToBus = super.getUniformRangeDistribution(BoardingUpperLimit, BoardingLowerLimit);
         this.RndDropFromBus = super.getUniformRangeDistribution(GetOutOfBusUpperLimit, GetOutOfBusLowerLimit);
         this.RndOperating = super.getUniformRangeDistribution(OperatingUpperLimit, OperatingLowerLimit);
-        this.sumAllWaitingTimes = 0;      
+        this.sumAllWaitingTimes = 0;  
+        this.ArrivalCustomersCount = 0;
     }
 
     @Override
     public void beforeSimulation() {
-        this.customersCount = 0;
+        this.DepartureCustomersCount = 0;
+        this.ArrivalCustomersCount = 0;
         this.sumWaitingTimes = 0;
         this.CustomersQueueT1 = new LinkedList<>();
         this.CustomersQueueT2 = new LinkedList<>();
         this.CustomersQueueRental = new LinkedList<>();
+        this.ArrMiniBuses = new ArrayList<>();
         for (int i = 0; i < MiniBusCount; i++) {
-            plainEvent(new DepartureMiniBusAirCar(this, Now, new MiniBus(i)));
+            MiniBus mb = new MiniBus(i);
+            ArrMiniBuses.add(mb);
+            plainEvent(new DepartureMiniBusAirCar(this, Now, mb));
         }
         for (Operator o : this.ArrOperators) {
             o.setOccupied(false);
@@ -66,7 +74,7 @@ public class AirCarCore extends SimulationCore {
 
     @Override
     public void afterSimulation() {
-        this.sumAllWaitingTimes += getResult()[0];
+        this.sumAllWaitingTimes += getResult();
     }
 
     public double getSumAllWaitingTimes() {
@@ -88,16 +96,28 @@ public class AirCarCore extends SimulationCore {
         }
         return null;
     }
+    
+    public int getFreeOperatorsCount(){
+        int count =0;
+        for (Operator o : this.ArrOperators) {
+            if(!o.isOccupied()){
+                count++;
+            }
+        }
+        return count;
+    }
 
     public void addWatingTime(double time) {
         this.sumWaitingTimes += time;
-        this.customersCount += 1;
+        this.DepartureCustomersCount ++;
     }
 
-    public Double[] getResult() {
-        Double[] result = new Double[1];
-        result[0] = this.sumWaitingTimes / this.customersCount;
-        return result;
+    public double getResult() {
+        if(DepartureCustomersCount == 0){
+            return 0;
+        }else {
+            return this.sumWaitingTimes / this.DepartureCustomersCount;
+        }   
     }
 
     public ExponentialDistribution getRndArrivalT1() {
@@ -155,4 +175,37 @@ public class AirCarCore extends SimulationCore {
     public boolean isEmptyCustomersQueueRental(){
         return this.CustomersQueueRental.isEmpty();
     }
+    
+    public int getCustomerQueueT1Size(){
+        return this.CustomersQueueT1.size();
+    }
+    
+    public int getCustomerQueueT2Size(){
+        return this.CustomersQueueT2.size();
+    }
+    
+    public int getCustomerQueueRentalSize(){
+        return this.CustomersQueueRental.size();
+    }
+
+    public double getDepartureCustomersCount() {
+        return DepartureCustomersCount;
+    }
+
+    public double getArrivalCustomersCount() {
+        return ArrivalCustomersCount;
+    }
+    
+    public void incrementArrivalCustomersCount(){
+        ArrivalCustomersCount ++;
+    }
+    
+    public int getMiniBusesCount(){
+        return ArrMiniBuses.size();
+    }
+    
+    public MiniBus getMinibus(int index){
+        return ArrMiniBuses.get(index);
+    }
+    
 }

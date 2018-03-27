@@ -22,7 +22,7 @@ public class Tests {
     public static void main(String[] args) {
         mySimulationCoreTest();
         
-        testConstants();
+        //testConstants();
     }   
     
     public static void mySimulationCoreTest(){
@@ -32,7 +32,7 @@ public class Tests {
              public void run() {
                  //double current = msc.getCurrentTime();
                  //System.out.println(msc.getCustomersString());
-                 System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment()/60);
+                 System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment()/60.0);
                              
             }
         };

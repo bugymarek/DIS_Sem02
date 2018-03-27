@@ -41,8 +41,8 @@ public abstract class SimulationCore {
         this.Runnable = true;
         this.Cooling = cooling;
         this.Pause = false;
-        this.Step = 1;
-        this.Wait = 1000;
+        this.Step = 1000;
+        this.Wait = 1;
     }
 
     public void doReprications(double count, double endSimulationTime) {
@@ -126,6 +126,22 @@ public abstract class SimulationCore {
         this.Wait = Wait;
     }
 
+    public void setPause(boolean Pause) {
+        this.Pause = Pause;
+    }
+
+    public boolean isPause() {
+        return Pause;
+    }
+
+    public void setRunnable(boolean Runnable) {
+        this.Runnable = Runnable;
+    }
+
+    public boolean isRunnable() {
+        return Runnable;
+    }
+    
     public void startSteps() {
         plainEvent(new Stepper(this, CurrentTime));
     }

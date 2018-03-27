@@ -23,8 +23,9 @@ public class StartBoardingT2 extends AirCarEvent {
 
     @Override
     public void execute() {
-            double boardingTime = getCore().getRndBoardToBus().next();
-            getCore().plainEvent(new EndBoardingT2(getCore(), boardingTime, getMiniBus(), getCustomer()));
+        getMiniBus().setPosition("Som na T2");
+        double boardingTime = getCore().getRndBoardToBus().next();
+        getCore().plainEvent(new EndBoardingT2(getCore(), boardingTime, getMiniBus(), getCustomer()));
     }
 
 }

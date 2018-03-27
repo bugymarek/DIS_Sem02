@@ -23,6 +23,7 @@ public class ArrivalCustomerT1 extends AirCarEvent{
     @Override
     public void execute() {
         getCustomer().setArrivalTime(getCore().getCurrentTime());
+        getCore().incrementArrivalCustomersCount();
         
 //        System.out.println("Zakaznik: " + getCustomer().getTerminalAndID() + "| Prichod zakaznika v cese: " + (getCore().getCurrentTime()));
         getCore().addToCustomersQueueT1(getCustomer());

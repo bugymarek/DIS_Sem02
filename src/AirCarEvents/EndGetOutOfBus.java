@@ -20,7 +20,7 @@ public class EndGetOutOfBus extends AirCarEvent{
     }
 
     @Override
-    public void execute() {      
+    public void execute() {
        getCore().plainEvent(new ArrivalCustomerAirCar(getCore(), Now, getMiniBus().getCustomerFromBus()));// ??? podla casov prichodov na terminal 
        getCore().plainEvent(new StartGetOutOfBus(getCore(), Now, getMiniBus()));
     }

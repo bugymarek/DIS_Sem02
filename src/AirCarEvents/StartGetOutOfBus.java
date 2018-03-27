@@ -22,9 +22,11 @@ public class StartGetOutOfBus  extends AirCarEvent{
     @Override
     public void execute() {
         if(!getMiniBus().isEmpty()){
+            getMiniBus().setPosition("Som v požičovni");
             double getOutOfBusTime = getCore().getRndDropFromBus().next();
             getCore().plainEvent(new EndGetOutOfBus(getCore(), getOutOfBusTime, getMiniBus()));
         } else {
+             getMiniBus().setPosition("Odchádzam z požičovne do T1");
             getCore().plainEvent(new DepartureMiniBusAirCar(getCore(), Now, getMiniBus()));
         }    
     }

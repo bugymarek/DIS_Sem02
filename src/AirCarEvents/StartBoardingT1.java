@@ -22,6 +22,7 @@ public class StartBoardingT1 extends AirCarEvent{
 
     @Override
     public void execute() {
+            getMiniBus().setPosition("Som na T1");
             double boardingTime = getCore().getRndBoardToBus().next();
             getCore().plainEvent(new EndBoardingT1(getCore(), boardingTime, getMiniBus(), getCustomer()));    
     }

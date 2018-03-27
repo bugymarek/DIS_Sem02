@@ -25,8 +25,10 @@ public class ArrivalMiniBusAirCar extends AirCarEvent{
 //        System.out.println(" Pasažieri: " + getMiniBus().getCustomersInBus()+ " pocet: " + getMiniBus().getSize());
 //              
         if(getMiniBus().isEmpty()){
+            getMiniBus().setPosition("Odchádzam z Požičovne do T1");
             getCore().plainEvent(new DepartureMiniBusAirCar(getCore(), Now, getMiniBus())); 
         } else {
+            getMiniBus().setPosition("Som v požičovni");
             getCore().plainEvent(new StartGetOutOfBus(getCore(), Now, getMiniBus()));
         }
     }

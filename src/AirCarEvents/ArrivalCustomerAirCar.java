@@ -23,6 +23,7 @@ public class ArrivalCustomerAirCar extends AirCarEvent{
     @Override
     public void execute() {
         Operator operator = getCore().getFreeOperator();
+        
         // nemoze sa stat ze budem predbiehat ludi v rade ?
         if(operator != null){
             getCore().plainEvent(new StartOperating(getCore(), Now, operator, getCustomer()));

@@ -9,9 +9,11 @@ import AirCarCore.AirCarCore;
 import static Constants.Constants.SimulationTime;
 import Core.Command;
 import java.awt.Color;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -66,6 +68,22 @@ public class App extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabelRealTime = new javax.swing.JLabel();
         jLabelSimTime = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextFieldArrivalCount = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldDepartureCount = new javax.swing.JTextField();
+        jTextFieldMean = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFieldQueueT1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextFieldQueueT2 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldQueueAirCar = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextFieldFreeOperatorsCount = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
 
         jTextField5.setText("jTextField5");
@@ -82,10 +100,25 @@ public class App extends javax.swing.JDialog {
         });
 
         jButton2.setText("Stop");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Pauza");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jTextFieldOperators.setText("2");
+        jTextFieldOperators.setText("20");
+        jTextFieldOperators.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldOperatorsActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Počet pracovníkov");
 
@@ -154,8 +187,12 @@ public class App extends javax.swing.JDialog {
                     .addComponent(jLabel3))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(408, 408, 408)
+                        .addComponent(jLabelProgress))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -178,17 +215,13 @@ public class App extends javax.swing.JDialog {
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabelWaiting))
-                                    .addComponent(jSliderWaiting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(408, 408, 408)
-                        .addComponent(jLabelProgress)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSliderWaiting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,6 +276,35 @@ public class App extends javax.swing.JDialog {
 
         jLabelRealTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabelSimTime.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel10.setText("Prišli do systému");
+
+        jLabel11.setText("Odišli zo systému");
+
+        jLabel12.setText("Priemerný čas v systéme");
+
+        jLabel13.setText("Počet v rade T1");
+
+        jLabel14.setText("Počet v rade T2");
+
+        jLabel15.setText("Počet v rade požičovna");
+
+        jLabel16.setText("Počet voľných pracovníkov");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -250,28 +312,90 @@ public class App extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabelRealTime, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldMean, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldArrivalCount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldDepartureCount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelSimTime)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldQueueT1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldQueueT2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldQueueAirCar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelRealTime, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                    .addComponent(jLabelSimTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldFreeOperatorsCount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                    .addComponent(jLabelRealTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldQueueAirCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                            .addComponent(jLabelRealTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelSimTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldMean, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldArrivalCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDepartureCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldQueueT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldQueueT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabelSimTime))
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldFreeOperatorsCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sumárne štatistiky", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -319,6 +443,9 @@ public class App extends javax.swing.JDialog {
     private void jSliderSpeedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderSpeedStateChanged
         double value = jSliderSpeed.getValue();
 
+        if (AirCarCore != null) {
+            AirCarCore.setStep(value);
+        }
         if (value >= 60 * 60) {
             jLabelSpeed.setText(Double.toString(Math.round((value / (60.0 * 60.0)) * 100.0) / 100.0) + " h");
             return;
@@ -328,9 +455,7 @@ public class App extends javax.swing.JDialog {
             return;
         }
         jLabelSpeed.setText(Double.toString(value) + " s");
-        if (AirCarCore != null) {
-            AirCarCore.setStep(value);
-        }
+
     }//GEN-LAST:event_jSliderSpeedStateChanged
 
     private void jSliderWaitingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderWaitingStateChanged
@@ -341,27 +466,53 @@ public class App extends javax.swing.JDialog {
     }//GEN-LAST:event_jSliderWaitingStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jButton1.setEnabled(false);
         int operators = Integer.parseInt(jTextFieldOperators.getText());
         int minibuses = Integer.parseInt(jTextFieldMinibus.getText());
         int raplications = Integer.parseInt(jTextFieldReplications.getText());
-        int pertents = Integer.parseInt(jTextFieldPercents.getText());
+        int percents = Integer.parseInt(jTextFieldPercents.getText());
         jLabelProgress.setText("0/" + raplications);
         jProgressBar1.setMaximum(raplications);
-        Thread t;
-        t = new Thread(() -> {
+
+        Thread t = new Thread(() -> {
             AirCarCore = new AirCarCore(minibuses, operators, false);
-            Command c = createCommand(AirCarCore, 0);
+            Command c = createCommand(AirCarCore, percents);
             AirCarCore.setCommand(c);
             AirCarCore.setStep(jSliderSpeed.getValue());
             AirCarCore.setWait(jSliderWaiting.getValue());
             AirCarCore.doReprications(raplications, SimulationTime);
+            jButton1.setEnabled(true);
         });
-        t.start(); 
+        t.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldReplicationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldReplicationsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldReplicationsActionPerformed
+
+    private void jTextFieldOperatorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldOperatorsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOperatorsActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (AirCarCore != null && AirCarCore.isRunnable()) {
+            if (AirCarCore.isPause()) {
+                AirCarCore.setPause(false);
+                jButton3.setText("Pauza");
+            } else {
+                AirCarCore.setPause(true);
+                jButton3.setText("Pokračuj");
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jButton3.setText("Pauza");
+        jProgressBar1.setValue(0);
+        if (AirCarCore != null) {
+            AirCarCore.setRunnable(false);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,10 +559,18 @@ public class App extends javax.swing.JDialog {
     private void setUp() {
         jLabelWaiting.setText(Integer.toString(jSliderWaiting.getValue()));
         jLabelSpeed.setText(Integer.toString(jSliderSpeed.getValue()) + " s");
+        jTextFieldArrivalCount.setEditable(false);
+        jTextFieldDepartureCount.setEditable(false);
+        DefTableModel = new DefaultTableModel(0, 0);
+        String header[] = new String[]{"Id minibusu", "Pozícia", "Počet pasažierov"};
+        DefTableModel.setColumnIdentifiers(header);
+        jTable1.setModel(DefTableModel);
+
         //chart = new Chart(JPanelChart);      
     }
 
     private AirCarCore AirCarCore;
+    private DefaultTableModel DefTableModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -419,6 +578,13 @@ public class App extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -436,12 +602,21 @@ public class App extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSliderSpeed;
     private javax.swing.JSlider jSliderWaiting;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldArrivalCount;
+    private javax.swing.JTextField jTextFieldDepartureCount;
+    private javax.swing.JTextField jTextFieldFreeOperatorsCount;
+    private javax.swing.JTextField jTextFieldMean;
     private javax.swing.JTextField jTextFieldMinibus;
     private javax.swing.JTextField jTextFieldOperators;
     private javax.swing.JTextField jTextFieldPercents;
+    private javax.swing.JTextField jTextFieldQueueAirCar;
+    private javax.swing.JTextField jTextFieldQueueT1;
+    private javax.swing.JTextField jTextFieldQueueT2;
     private javax.swing.JTextField jTextFieldReplications;
     // End of variables declaration//GEN-END:variables
 
@@ -450,17 +625,43 @@ public class App extends javax.swing.JDialog {
             @Override
             public void run() {
                 jLabelRealTime.setText((int) Math.floor(core.getCurrentTime() / (60.0 * 60.0 * 24.0)) + " d " + (int) Math.floor(core.getCurrentTime() / (60.0 * 60.0) % 24.0) + " h " + (int) Math.floor((core.getCurrentTime() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentTime() % 60.0)) + " sec");
-                
-                if(jProgressBar1.getValue() != AirCarCore.getCurrentExperiment()){
-                    jProgressBar1.setValue((int)AirCarCore.getCurrentExperiment());
-                    jLabelProgress.setText((int)AirCarCore.getCurrentExperiment() + "/"+(int)AirCarCore.getReplicationsCount());
+                jLabelSimTime.setText(AirCarCore.getCurrentTime() + " s");
+
+                if (jProgressBar1.getValue() != AirCarCore.getCurrentExperiment()) {
+                    jProgressBar1.setValue((int) AirCarCore.getCurrentExperiment());
+                    jLabelProgress.setText((int) AirCarCore.getCurrentExperiment() + "/" + (int) AirCarCore.getReplicationsCount());
                 }
+
+                jTextFieldArrivalCount.setText(Integer.toString((int) AirCarCore.getArrivalCustomersCount()));
+                jTextFieldDepartureCount.setText(Integer.toString((int) AirCarCore.getDepartureCustomersCount()));
+
+                jTextFieldMean.setText(Double.toString(Math.round((AirCarCore.getResult() / 60.0) * 100.0) / 100.0) + " min");
+
+                jTextFieldQueueT1.setText(Integer.toString(AirCarCore.getCustomerQueueT1Size()));
+
+                jTextFieldQueueT2.setText(Integer.toString(AirCarCore.getCustomerQueueT2Size()));
+
+                jTextFieldQueueAirCar.setText(Integer.toString(AirCarCore.getCustomerQueueRentalSize()));
+
+                jTextFieldFreeOperatorsCount.setText(Integer.toString(AirCarCore.getFreeOperatorsCount()));           
                 
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        DefTableModel.setRowCount(0);
+                        for (int i = 0; i < AirCarCore.getMiniBusesCount(); i++) {
+                            Vector<Object> data = new Vector<>();
+                            data.add(AirCarCore.getMinibus(i).getID());
+                            data.add(AirCarCore.getMinibus(i).getPosition());
+                            data.add(AirCarCore.getMinibus(i).getSize());
+                            DefTableModel.addRow(data);
+                        }
+                    }
+                });
 
                 double firstReplication = core.getReplicationsCount() / 100 * cutPercents;
                 if (core.getCurrentExperiment() > firstReplication) {
                 }
-
             }
         };
         return c;

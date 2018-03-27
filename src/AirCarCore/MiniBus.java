@@ -14,10 +14,19 @@ import java.util.LinkedList;
 public class MiniBus {
     private final LinkedList<Customer> Customers;
     private int ID;
+    private String Position;
 
     public MiniBus(int id) {
         this.Customers = new LinkedList<>();
         this.ID = id;
+    }
+
+    public String getPosition() {
+        return Position;
+    }
+
+    public void setPosition(String Position) {
+        this.Position = Position;
     }
     
     public Customer getCustomerFromBus(){

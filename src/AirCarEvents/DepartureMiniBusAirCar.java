@@ -22,6 +22,7 @@ public class DepartureMiniBusAirCar extends AirCarEvent{
 
     @Override
     public void execute() {
+      getMiniBus().setPosition("Cestujem z požičovne do T1");
       getCore().plainEvent(new ArrivalMiniBusT1(getCore(), LengtRentalToT1, getMiniBus()));
     }
     
