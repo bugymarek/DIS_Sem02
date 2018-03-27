@@ -7,6 +7,7 @@ package AirCarEvents;
 
 import AirCarCore.AirCarCore;
 import AirCarCore.AirCarEvent;
+import AirCarCore.Customer;
 import AirCarCore.MiniBus;
 import static Constants.Constants.*;
 /**
@@ -15,18 +16,14 @@ import static Constants.Constants.*;
  */
 public class StartBoardingT1 extends AirCarEvent{
 
-    public StartBoardingT1(AirCarCore core, double startTime, MiniBus minibus) {
-        super(core, startTime, minibus);
+    public StartBoardingT1(AirCarCore core, double startTime, MiniBus minibus, Customer customer) {
+        super(core, startTime, minibus, customer);
     }
 
     @Override
     public void execute() {
-        if(getMiniBus().isPlaceInBus() && !getCore().isEmptyCustomersQueueT1()){
             double boardingTime = getCore().getRndBoardToBus().next();
-            getCore().plainEvent(new EndBoardingT1(getCore(), boardingTime, getMiniBus(), getCore().getCustomerFromQueueT1()));
-        } else {
-            getCore().plainEvent(new ArrivalMiniBusT2(getCore(), LengtT1ToT2, getMiniBus()));
-        }
+            getCore().plainEvent(new EndBoardingT1(getCore(), boardingTime, getMiniBus(), getCustomer()));    
     }
     
 }

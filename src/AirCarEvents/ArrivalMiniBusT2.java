@@ -29,7 +29,7 @@ public class ArrivalMiniBusT2 extends AirCarEvent{
        if(getCore().isEmptyCustomersQueueT2() || !getMiniBus().isPlaceInBus()){
             getCore().plainEvent(new ArrivalMiniBusAirCar(getCore(), LengtT2ToRental, getMiniBus()));
         } else {
-            getCore().plainEvent(new StartBoardingT2(getCore(), Now, getMiniBus()));
+            getCore().plainEvent(new StartBoardingT2(getCore(), Now, getMiniBus(), getCore().getCustomerFromQueueT2()));
         }
     }
     
