@@ -24,13 +24,13 @@ public class Tests {
     }   
     
     public static void mySimulationCoreTest(){
-        AirCarCore msc = new AirCarCore(5,20, true);
+        AirCarCore msc = new AirCarCore(5,20, false);
         Command c = new Command() {
             @Override
              public void run() {
                  //double current = msc.getCurrentTime();
                  //System.out.println(msc.getCustomersString());
-                     System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment());
+                     System.out.println(msc.getSumAllWaitingTimes()/msc.getCurrentExperiment()/60);
                              
             }
         };

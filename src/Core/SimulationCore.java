@@ -9,34 +9,40 @@ import Generators.ExponentialDistribution;
 import Generators.UniformRangeDistribution;
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Bugy
  */
 public abstract class SimulationCore {
+
     private double CurrentTime;
+    private double Step;
+    private long Wait;
     private PriorityQueue<Event> CalendarEvents;
     private double CurrentExperiment;
-    private double Success;
     private Command Command;
     private boolean Runnable;
     private double ReplicationsCount;
-    private final int Modulo = 1;
     private double MinValue;
     private double MaxValue;
     private Random GenSeeds;
     private boolean Cooling;
-    
+    private boolean Pause;
+
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
         this.GenSeeds = new Random(100);
         this.CurrentTime = 0;
         this.Command = null;
-        this.Success = 0;
         this.Runnable = true;
         this.Cooling = cooling;
-    }  
+        this.Pause = false;
+        this.Step = 1;
+        this.Wait = 1000;
+    }
 
     public void doReprications(double count, double endSimulationTime) {
         this.ReplicationsCount = count;
@@ -46,49 +52,85 @@ public abstract class SimulationCore {
             beforeReplication();
             beforeSimulation();
             simulate(endSimulationTime);
-            if(!Runnable) break;
-            afterSimulation();       
-            if(this.Command != null && i%Modulo == 0) {
+            if (!Runnable) {
+                break;
+            }
+            afterSimulation();
+            if (this.Command != null) {
                 Command.run();
             }
         }
         //getResultsForStatistics();
-        
+
     }
-    
-    private void simulate(double endSimulationTime) {
-       Event temporaryEvent;
-       while((Cooling || CurrentTime <= endSimulationTime) && !CalendarEvents.isEmpty() && Runnable){
-           temporaryEvent = CalendarEvents.poll();
-           CurrentTime = temporaryEvent.getStartTime();
-           if(!Cooling){
-             if(CurrentTime > endSimulationTime) break;  
-           }        
-           temporaryEvent.execute();
-       }
+
+    private void simulate(double endSimulationTime){
+        Event temporaryEvent;
+        while ((Cooling || CurrentTime <= endSimulationTime) && !CalendarEvents.isEmpty() && Runnable) {
+            temporaryEvent = CalendarEvents.poll();
+            CurrentTime = temporaryEvent.getStartTime();
+            if (!Cooling) {
+                if (CurrentTime > endSimulationTime) {
+                    break;
+                }
+            }
+            temporaryEvent.execute();
+            while (Pause) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(SimulationCore.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!Runnable) {
+                    break;
+                }
+            }
+        }
     }
-    
-    public boolean plainEvent(Event e){
+
+    /**
+     *
+     * @param e
+     * @return
+     */
+    public boolean plainEvent(Event e) {
         return CalendarEvents.add(e);
     }
 
     public PriorityQueue<Event> getCalendarEvents() {
         return CalendarEvents;
     }
-    
+
     public double getCurrentTime() {
         return CurrentTime;
     }
-    
-    public void step(){
+
+    public void step() {
         Command.run();
     }
-    
-    public void startSteps(){
+
+    public double getStep() {
+        return Step;
+    }
+
+    public long getWait() {
+        return Wait;
+    }
+
+    public void setStep(double Step) {
+        this.Step = Step;
+    }
+
+    public void setWait(long Wait) {
+        this.Wait = Wait;
+    }
+
+    public void startSteps() {
         //plainEvent(new Stepper(this, CurrentTime));
     }
+
     public abstract void beforeSimulation();
-    
+
     public abstract void afterSimulation();
 
     private void beforeReplication() {
@@ -100,13 +142,13 @@ public abstract class SimulationCore {
     public void setCommand(Command Command) {
         this.Command = Command;
     }
-    
-    public ExponentialDistribution getExponentialDistribution(double lampda){
+
+    public ExponentialDistribution getExponentialDistribution(double lampda) {
         return new ExponentialDistribution(new Random(GenSeeds.nextInt()), lampda);
     }
-    
-    public UniformRangeDistribution getUniformRangeDistribution(double upperLimit, double lowerLimit){
-            return new UniformRangeDistribution(upperLimit, lowerLimit, new Random(GenSeeds.nextInt()));
+
+    public UniformRangeDistribution getUniformRangeDistribution(double upperLimit, double lowerLimit) {
+        return new UniformRangeDistribution(upperLimit, lowerLimit, new Random(GenSeeds.nextInt()));
     }
 
     public double getReplicationsCount() {

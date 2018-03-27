@@ -5,12 +5,15 @@
  */
 package Core;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Bugy
  */
 public class Stepper extends Event{
-    private final double Step = 1;
+    
     
     public Stepper(SimulationCore core, double startTime) {
         super(core, startTime);
@@ -18,11 +21,13 @@ public class Stepper extends Event{
 
     @Override
     public void execute() {
-        SimulationCore core = getCore();
-        core.step();
-        // mozno sleep]
-        //double starTime = core.getCurrentTime() + Step;
-        core.plainEvent(new Stepper(core, Step));
+        getCore().step();
+        try {
+            Thread.sleep(getCore().getWait());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Stepper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getCore().plainEvent(new Stepper(getCore(), getCore().getStep()));
     }
     
 }
