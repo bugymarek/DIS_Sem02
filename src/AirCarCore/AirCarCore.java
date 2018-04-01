@@ -37,6 +37,8 @@ public class AirCarCore extends SimulationCore {
     private final int MiniBusCount;
     private ArrayList<MiniBus> ArrMiniBuses;
     private boolean StopArrivalCustomers;
+    private double MinValue;
+    private double MaxValue;
     
     public AirCarCore(int miniBusCount, int operatorsCount, boolean cooling) {
         super(cooling);
@@ -50,6 +52,8 @@ public class AirCarCore extends SimulationCore {
         this.RndOperating = super.getUniformRangeDistribution(OperatingUpperLimit, OperatingLowerLimit);
         this.sumAllWaitingTimes = 0;  
         this.ArrivalCustomersCount = 0;
+        this.MinValue = Double.MAX_VALUE;
+        this.MaxValue = 0;
         this.StopArrivalCustomers = false;
     }
 
@@ -220,6 +224,19 @@ public class AirCarCore extends SimulationCore {
     public boolean isStopArrivalCustomers() {
         return StopArrivalCustomers;
     }
+
+    public double getMaxValue() {
+        return MaxValue;
+    }
+
+    public double getMinValue() {
+        return MinValue;
+    }
+    
+    public double getCurrentMean(){
+       return sumAllWaitingTimes / getCurrentExperiment();
+    }
+    
     
     public String getInterval(double replications) {
         double s = Math.sqrt(getAverage2() / replications - Math.pow(getAverage1() / replications, 2));
@@ -228,5 +245,17 @@ public class AirCarCore extends SimulationCore {
         min = min/60.0;
         max = max/60.0;
         return "<" + String.format("%.5f", min) + " ; " + String.format("%.5f", max) + ">";
+    }
+    
+    public void setMinMax(){
+        if(getCurrentMean() < MinValue){
+            MinValue = getCurrentMean();
+        }
+        if(getCurrentMean() > MaxValue){
+            MaxValue = getCurrentMean();
+        }
+        if(MinValue == MaxValue){
+            MaxValue += 0.000000000001;
+        }          
     }
 }

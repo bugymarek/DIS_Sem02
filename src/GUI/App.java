@@ -87,6 +87,15 @@ public class App extends javax.swing.JDialog {
         jTextFieldInterval = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jTextFieldStatMean = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jPanelMean = new javax.swing.JPanel();
+        jTextFieldStatInterval = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jPanelMinibusesFixed = new javax.swing.JPanel();
+        jPanelOperatorsFixed = new javax.swing.JPanel();
 
         jTextField5.setText("jTextField5");
 
@@ -226,7 +235,7 @@ public class App extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
@@ -416,20 +425,107 @@ public class App extends javax.swing.JDialog {
                         .addComponent(jTextFieldInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sumárne štatistiky", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+
+        jLabel18.setText("Priemerný čas v systéme");
+
+        javax.swing.GroupLayout jPanelMeanLayout = new javax.swing.GroupLayout(jPanelMean);
+        jPanelMean.setLayout(jPanelMeanLayout);
+        jPanelMeanLayout.setHorizontalGroup(
+            jPanelMeanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelMeanLayout.setVerticalGroup(
+            jPanelMeanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 302, Short.MAX_VALUE)
+        );
+
+        jLabel19.setText("90% interval spoľahlivosti");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelMean, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldStatMean, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(0, 194, Short.MAX_VALUE))
+                            .addComponent(jTextFieldStatInterval))))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldStatMean, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldStatInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelMean, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Priem. čas v systéme", jPanel4);
+
+        javax.swing.GroupLayout jPanelMinibusesFixedLayout = new javax.swing.GroupLayout(jPanelMinibusesFixed);
+        jPanelMinibusesFixed.setLayout(jPanelMinibusesFixedLayout);
+        jPanelMinibusesFixedLayout.setHorizontalGroup(
+            jPanelMinibusesFixedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelMinibusesFixedLayout.setVerticalGroup(
+            jPanelMinibusesFixedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Fixné minibusy", jPanelMinibusesFixed);
+
+        javax.swing.GroupLayout jPanelOperatorsFixedLayout = new javax.swing.GroupLayout(jPanelOperatorsFixed);
+        jPanelOperatorsFixed.setLayout(jPanelOperatorsFixedLayout);
+        jPanelOperatorsFixedLayout.setHorizontalGroup(
+            jPanelOperatorsFixedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelOperatorsFixedLayout.setVerticalGroup(
+            jPanelOperatorsFixedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Fixní pracovníci", jPanelOperatorsFixed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -496,9 +592,26 @@ public class App extends javax.swing.JDialog {
         jProgressBar1.setMaximum(raplications);
         jProgressBar1.setValue(0);
 
+        int selectedItem = jComboBox1.getSelectedIndex();
+        switch (selectedItem) {
+            case 0:
+                ChartMean = new Chart(jPanelMean, "Priem. čas v systéme", "Priemerný čas zákaznika v systéme", "Počet replikácií", "Priemer v minútach");
+                this.Min = Double.MAX_VALUE;
+                this.Max = 0;
+                break;
+            case 1:
+                jTextFieldMinibus.setEnabled(false);
+                jTextFieldOperators.setEnabled(true);
+                break;
+            case 2:
+                jTextFieldOperators.setEnabled(false);
+                jTextFieldMinibus.setEnabled(true);
+                break;
+        }
+
         Thread t = new Thread(() -> {
             AirCarCore = new AirCarCore(minibuses, operators, true);
-            Command c = createCommand(AirCarCore, percents);
+            Command c = createCommand(AirCarCore, percents, selectedItem);
             AirCarCore.setCommand(c);
             AirCarCore.setStep(jSliderSpeed.getValue());
             AirCarCore.setWait(jSliderWaiting.getValue());
@@ -529,7 +642,7 @@ public class App extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton3.setText("Pauza");  
+        jButton3.setText("Pauza");
         if (AirCarCore != null) {
             AirCarCore.setRunnable(false);
         }
@@ -538,15 +651,18 @@ public class App extends javax.swing.JDialog {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         int selectedItem = jComboBox1.getSelectedIndex();
         switch (selectedItem) {
-            case 0:  jTextFieldMinibus.setEnabled(true);
-                     jTextFieldOperators.setEnabled(true); 
-                     break;
-            case 1:  jTextFieldMinibus.setEnabled(false); 
-                     jTextFieldOperators.setEnabled(true); 
-                     break;
-            case 2:  jTextFieldOperators.setEnabled(false); 
-                     jTextFieldMinibus.setEnabled(true);
-                     break;
+            case 0:
+                jTextFieldMinibus.setEnabled(true);
+                jTextFieldOperators.setEnabled(true);
+                break;
+            case 1:
+                jTextFieldMinibus.setEnabled(false);
+                jTextFieldOperators.setEnabled(true);
+                break;
+            case 2:
+                jTextFieldOperators.setEnabled(false);
+                jTextFieldMinibus.setEnabled(true);
+                break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
@@ -597,16 +713,23 @@ public class App extends javax.swing.JDialog {
         jLabelSpeed.setText(Integer.toString(jSliderSpeed.getValue()) + " s");
         jTextFieldArrivalCount.setEditable(false);
         jTextFieldDepartureCount.setEditable(false);
+        jTextFieldInterval.setEditable(false);
+        jTextFieldFreeOperatorsCount.setEditable(false);
+        jTextFieldMean.setEditable(false);
         DefTableModel = new DefaultTableModel(0, 0);
         String header[] = new String[]{"Id minibusu", "Pozícia", "Počet pasažierov"};
         DefTableModel.setColumnIdentifiers(header);
         jTable1.setModel(DefTableModel);
-
         //chart = new Chart(JPanelChart);      
     }
 
     private AirCarCore AirCarCore;
     private DefaultTableModel DefTableModel;
+    private Chart ChartMean;
+    private Chart ChartMinibusesFixed;
+    private Chart ChartOperatorsFixed;
+    private double Min;
+    private double Max;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -622,6 +745,8 @@ public class App extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -638,10 +763,15 @@ public class App extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelMean;
+    private javax.swing.JPanel jPanelMinibusesFixed;
+    private javax.swing.JPanel jPanelOperatorsFixed;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSliderSpeed;
     private javax.swing.JSlider jSliderWaiting;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextFieldArrivalCount;
@@ -656,9 +786,11 @@ public class App extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldQueueT1;
     private javax.swing.JTextField jTextFieldQueueT2;
     private javax.swing.JTextField jTextFieldReplications;
+    private javax.swing.JTextField jTextFieldStatInterval;
+    private javax.swing.JTextField jTextFieldStatMean;
     // End of variables declaration//GEN-END:variables
 
-    private Command createCommand(AirCarCore core, int cutPercents) {
+    private Command createCommand(AirCarCore core, int cutPercents, int selectedItem) {
         Command c = new Command() {
             @Override
             public void run() {
@@ -673,7 +805,7 @@ public class App extends javax.swing.JDialog {
                 jTextFieldArrivalCount.setText(Integer.toString((int) AirCarCore.getArrivalCustomersCount()));
                 jTextFieldDepartureCount.setText(Integer.toString((int) AirCarCore.getDepartureCustomersCount()));
 
-                jTextFieldMean.setText((int) Math.floor((core.getResult()/ 60.0) % 60.0) + " min " + String.format("%.0f", (core.getResult() % 60.0)) + " sec");
+                jTextFieldMean.setText((int) Math.floor((core.getResult() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getResult() % 60.0)) + " sec");
 
                 jTextFieldQueueT1.setText(Integer.toString(AirCarCore.getCustomerQueueT1Size()));
 
@@ -682,8 +814,8 @@ public class App extends javax.swing.JDialog {
                 jTextFieldQueueAirCar.setText(Integer.toString(AirCarCore.getCustomerQueueRentalSize()));
 
                 int i = AirCarCore.getFreeOperatorsCount();
-                jTextFieldFreeOperatorsCount.setText(Integer.toString(AirCarCore.getFreeOperatorsCount()));           
-                
+                jTextFieldFreeOperatorsCount.setText(Integer.toString(AirCarCore.getFreeOperatorsCount()));
+
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -697,14 +829,42 @@ public class App extends javax.swing.JDialog {
                         }
                     }
                 });
-                
+
                 jTextFieldInterval.setText(core.getInterval(AirCarCore.getCurrentExperiment()));
 
                 double firstReplication = core.getReplicationsCount() / 100 * cutPercents;
-                if (core.getCurrentExperiment() > firstReplication) {
+                if (core.getCurrentExperiment() > firstReplication && core.isReplicationDone()) {
+                    switch (selectedItem) {
+                        case 0:
+                            ChartMean.addValueToSeries(0, AirCarCore.getCurrentExperiment(), AirCarCore.getCurrentMean() / 60.0);
+                            jTextFieldStatMean.setText((int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
+                            jTextFieldStatInterval.setText(core.getInterval(AirCarCore.getCurrentExperiment()));
+                            AirCarCore.setMinMax();
+                            setMinMax(AirCarCore.getMinValue() / 60.0, AirCarCore.getMaxValue() / 60.0);
+                            ChartMean.changeRange(Min, Max);
+                            break;
+                        case 1:
+                            //to do
+                            break;
+                        case 2:
+                            // to do
+                            break;
+                    }
                 }
             }
         };
         return c;
+    }
+
+    private void setMinMax(double actualMin, double actualMax) {
+        if (actualMin < Min) {
+            Min = actualMin;
+        }
+        if (actualMax > Max) {
+            Max = actualMax;
+        }
+        if (Min == Max) {
+            Max += 0.000000000001;
+        }
     }
 }

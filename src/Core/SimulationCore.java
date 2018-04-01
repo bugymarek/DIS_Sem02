@@ -26,8 +26,6 @@ public abstract class SimulationCore {
     private Command Command;
     private boolean Runnable;
     private double ReplicationsCount;
-    private double MinValue;
-    private double MaxValue;
     private Random GenSeeds;
     private boolean Cooling;
     private boolean Pause;
@@ -35,6 +33,7 @@ public abstract class SimulationCore {
     private double EndSimulationTime;
     private double Average1;
     private double Average2;
+    private boolean ReplicationDone;
 
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
@@ -45,7 +44,7 @@ public abstract class SimulationCore {
         this.Cooling = cooling;
         this.Pause = false;
         this.Step = 1000;
-        this.Wait = 1;
+        this.Wait = 1;  
         resetInterval();
         
     }
@@ -55,6 +54,7 @@ public abstract class SimulationCore {
         this.ReplicationsCount = count;
         resetInterval();
         for (double i = 1; i <= count; i++) {
+            this.ReplicationDone = false;
             this.CurrentExperiment = i;
             System.out.println(CurrentExperiment);
             beforeReplication();
@@ -91,10 +91,11 @@ public abstract class SimulationCore {
                     Logger.getLogger(SimulationCore.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (!Runnable) {
-                    break;
+                    return;
                 }
             }
         }
+        this.ReplicationDone = true;
     }
 
     /**
@@ -225,6 +226,9 @@ public abstract class SimulationCore {
     public void setAverage2(double Average2) {
         this.Average2 = Average2;
     }
-    
+
+    public boolean isReplicationDone() {
+        return ReplicationDone;
+    }
     
 }

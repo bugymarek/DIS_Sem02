@@ -24,16 +24,14 @@ public class Chart {
     private final XYSeriesCollection data;
     private final JFreeChart chart;
     
-    public Chart(JPanel panel){
+    public Chart(JPanel panel, String valueName, String descripiton, String XArisLabel, String YArisLabel ){
         data = new XYSeriesCollection();
-        XYSeries seriesA = new XYSeries("Pripad A");
-        XYSeries seriesB = new XYSeries("Pripad B");
+        XYSeries seriesA = new XYSeries(valueName);
         data.addSeries(seriesA);                     
-        data.addSeries(seriesB);
         chart = ChartFactory.createXYLineChart(
-            "Úspešne vyhratie automobilu",
-                "Počet replikácií", // x-axis Label
-                "Pravdepodobnosť", // y-axis Label
+            descripiton,
+                XArisLabel, // x-axis Label
+                YArisLabel, // y-axis Label
                 data, // Dataset
                 PlotOrientation.VERTICAL, // Plot Orientation
                 true, // Show Legend
