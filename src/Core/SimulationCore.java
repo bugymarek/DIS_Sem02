@@ -32,6 +32,9 @@ public abstract class SimulationCore {
     private boolean Cooling;
     private boolean Pause;
     private final int Modulo = 1;
+    private double EndSimulationTime;
+    private double Average1;
+    private double Average2;
 
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
@@ -43,10 +46,14 @@ public abstract class SimulationCore {
         this.Pause = false;
         this.Step = 1000;
         this.Wait = 1;
+        resetInterval();
+        
     }
 
     public void doReprications(double count, double endSimulationTime) {
+        this.EndSimulationTime = endSimulationTime;
         this.ReplicationsCount = count;
+        resetInterval();
         for (double i = 1; i <= count; i++) {
             this.CurrentExperiment = i;
             System.out.println(CurrentExperiment);
@@ -57,6 +64,7 @@ public abstract class SimulationCore {
                 break;
             }
             afterSimulation();
+            //setAverages();
             if (this.Command != null && i%Modulo == 0) {
                 Command.run();
             }
@@ -101,6 +109,10 @@ public abstract class SimulationCore {
     public PriorityQueue<Event> getCalendarEvents() {
         return CalendarEvents;
     }
+    
+    public void clearCalendarEvents(){
+        CalendarEvents.clear();
+    }
 
     public double getCurrentTime() {
         return CurrentTime;
@@ -143,7 +155,7 @@ public abstract class SimulationCore {
     }
     
     public void startSteps() {
-        plainEvent(new Stepper(this, CurrentTime));
+        //plainEvent(new Stepper(this, CurrentTime));
     }
 
     public abstract void beforeSimulation();
@@ -179,4 +191,40 @@ public abstract class SimulationCore {
     private void getResultsForStatistics() {
         Command.run();
     }
+
+    public double getEndSimulationTime() {
+        return EndSimulationTime;
+    }
+
+    public void setCooling(boolean Cooling) {
+        this.Cooling = Cooling;
+    }
+    
+    private void resetInterval(){
+        this.Average1 = 0.0;
+        this.Average2 = 0.0;
+    }
+
+    private void setAverages() {
+        this.Average1 += getCurrentTime();
+        this.Average2 += Math.pow(getCurrentTime(), 2);
+    }
+
+    public double getAverage1() {
+        return Average1;
+    }
+
+    public double getAverage2() {
+        return Average2;
+    }
+
+    public void setAverage1(double Average1) {
+        this.Average1 = Average1;
+    }
+
+    public void setAverage2(double Average2) {
+        this.Average2 = Average2;
+    }
+    
+    
 }

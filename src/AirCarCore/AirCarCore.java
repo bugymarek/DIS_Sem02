@@ -36,7 +36,8 @@ public class AirCarCore extends SimulationCore {
     private double sumAllWaitingTimes;
     private final int MiniBusCount;
     private ArrayList<MiniBus> ArrMiniBuses;
-
+    private boolean StopArrivalCustomers;
+    
     public AirCarCore(int miniBusCount, int operatorsCount, boolean cooling) {
         super(cooling);
         this.MiniBusCount = miniBusCount;
@@ -49,6 +50,7 @@ public class AirCarCore extends SimulationCore {
         this.RndOperating = super.getUniformRangeDistribution(OperatingUpperLimit, OperatingLowerLimit);
         this.sumAllWaitingTimes = 0;  
         this.ArrivalCustomersCount = 0;
+        this.StopArrivalCustomers = false;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class AirCarCore extends SimulationCore {
         this.CustomersQueueT2 = new LinkedList<>();
         this.CustomersQueueRental = new LinkedList<>();
         this.ArrMiniBuses = new ArrayList<>();
+        this.StopArrivalCustomers = false;
         for (int i = 0; i < MiniBusCount; i++) {
             MiniBus mb = new MiniBus(i);
             ArrMiniBuses.add(mb);
@@ -75,6 +78,8 @@ public class AirCarCore extends SimulationCore {
     @Override
     public void afterSimulation() {
         this.sumAllWaitingTimes += getResult();
+        setAverage1(getAverage1() + getResult());
+        setAverage2(getAverage2() + Math.pow(getResult(), 2));
     }
 
     public double getSumAllWaitingTimes() {
@@ -207,5 +212,21 @@ public class AirCarCore extends SimulationCore {
     public MiniBus getMinibus(int index){
         return ArrMiniBuses.get(index);
     }
+
+    public void setStopArrivalCustomers(boolean StopArrivalCustomers) {
+        this.StopArrivalCustomers = StopArrivalCustomers;
+    }
+
+    public boolean isStopArrivalCustomers() {
+        return StopArrivalCustomers;
+    }
     
+    public String getInterval(double replications) {
+        double s = Math.sqrt(getAverage2() / replications - Math.pow(getAverage1() / replications, 2));
+        double min = getAverage1() / replications - Interval * s / Math.sqrt(replications - 1);
+        double max = getAverage1() / replications + Interval * s / Math.sqrt(replications - 1);
+        min = min/60.0;
+        max = max/60.0;
+        return "<" + String.format("%.5f", min) + " ; " + String.format("%.5f", max) + ">";
+    }
 }

@@ -9,12 +9,11 @@ import AirCarCore.AirCarCore;
 import AirCarCore.AirCarEvent;
 import AirCarCore.Customer;
 
-
 /**
  *
  * @author Bugy
  */
-public class ArrivalCustomerT1 extends AirCarEvent{
+public class ArrivalCustomerT1 extends AirCarEvent {
 
     public ArrivalCustomerT1(AirCarCore core, double startTime, Customer customer) {
         super(core, startTime, customer);
@@ -24,13 +23,17 @@ public class ArrivalCustomerT1 extends AirCarEvent{
     public void execute() {
         getCustomer().setArrivalTime(getCore().getCurrentTime());
         getCore().incrementArrivalCustomersCount();
-        
-//        System.out.println("Zakaznik: " + getCustomer().getTerminalAndID() + "| Prichod zakaznika v cese: " + (getCore().getCurrentTime()));
+
+//      System.out.println("Zakaznik: " + getCustomer().getTerminalAndID() + "| Prichod zakaznika v cese: " + (getCore().getCurrentTime()));
         getCore().addToCustomersQueueT1(getCustomer());
-        
+
         double arrivalTime = getCore().getRndArrivalT1().next();
-        Customer cus = new Customer(getCustomer().getID()+1, "T1");
-        getCore().plainEvent(new ArrivalCustomerT1(getCore(), arrivalTime, cus));
+        if (getCore().getCurrentTime() + arrivalTime < getCore().getEndSimulationTime()) {
+            Customer cus = new Customer(getCustomer().getID() + 1, "T1");
+            getCore().plainEvent(new ArrivalCustomerT1(getCore(), arrivalTime, cus));
+        } else {
+            getCore().setStopArrivalCustomers(true);
+        }
     }
-    
+
 }

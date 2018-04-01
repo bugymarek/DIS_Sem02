@@ -20,13 +20,13 @@ public class Tests {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        mySimulationCoreTest();
+       //mySimulationCoreTest();
         
-        //testConstants();
+       testConstants();
     }   
     
     public static void mySimulationCoreTest(){
-        AirCarCore msc = new AirCarCore(5,20, false);
+        AirCarCore msc = new AirCarCore(7,18, true);
         Command c = new Command() {
             @Override
              public void run() {
@@ -37,7 +37,7 @@ public class Tests {
             }
         };
         msc.setCommand(c);      
-        msc.doReprications(30, SimulationTime);
+        msc.doReprications(1000, SimulationTime);
     }
 
     private static void testConstants() {
