@@ -34,6 +34,7 @@ public abstract class SimulationCore {
     private double Average1;
     private double Average2;
     private boolean ReplicationDone;
+    private boolean Monitoring;
 
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
@@ -43,10 +44,11 @@ public abstract class SimulationCore {
         this.Runnable = true;
         this.Cooling = cooling;
         this.Pause = false;
+        this.Monitoring = true;
         this.Step = 1000;
-        this.Wait = 1;  
+        this.Wait = 1;
         resetInterval();
-        
+
     }
 
     public void doReprications(double count, double endSimulationTime) {
@@ -65,7 +67,7 @@ public abstract class SimulationCore {
             }
             afterSimulation();
             //setAverages();
-            if (this.Command != null && i%Modulo == 0) {
+            if (this.Command != null && i % Modulo == 0) {
                 Command.run();
             }
         }
@@ -73,7 +75,7 @@ public abstract class SimulationCore {
 
     }
 
-    private void simulate(double endSimulationTime){
+    private void simulate(double endSimulationTime) {
         Event temporaryEvent;
         while ((Cooling || CurrentTime <= endSimulationTime) && !CalendarEvents.isEmpty() && Runnable) {
             temporaryEvent = CalendarEvents.poll();
@@ -110,8 +112,8 @@ public abstract class SimulationCore {
     public PriorityQueue<Event> getCalendarEvents() {
         return CalendarEvents;
     }
-    
-    public void clearCalendarEvents(){
+
+    public void clearCalendarEvents() {
         CalendarEvents.clear();
     }
 
@@ -154,9 +156,10 @@ public abstract class SimulationCore {
     public boolean isRunnable() {
         return Runnable;
     }
-    
+
     public void startSteps() {
-        //plainEvent(new Stepper(this, CurrentTime));
+        plainEvent(new Stepper(this, CurrentTime));
+        
     }
 
     public abstract void beforeSimulation();
@@ -200,8 +203,8 @@ public abstract class SimulationCore {
     public void setCooling(boolean Cooling) {
         this.Cooling = Cooling;
     }
-    
-    private void resetInterval(){
+
+    private void resetInterval() {
         this.Average1 = 0.0;
         this.Average2 = 0.0;
     }
@@ -230,5 +233,12 @@ public abstract class SimulationCore {
     public boolean isReplicationDone() {
         return ReplicationDone;
     }
-    
+
+    public void setMonitoring(boolean Monitoring) {
+        this.Monitoring = Monitoring;
+    }
+
+    public boolean isMonitoring() {
+        return Monitoring;
+    }
 }

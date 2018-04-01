@@ -161,6 +161,16 @@ public class App extends javax.swing.JDialog {
         jLabel4.setText("Nezobraziť % replikácií ");
 
         jCheckBox1.setText("Turbo mod");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox1StateChanged(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Žiadna", "Minibusy", "Pracovníci" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -690,12 +700,11 @@ public class App extends javax.swing.JDialog {
         jLabelProgress.setText("0/" + replications);
         jProgressBar1.setMaximum(replications);
         jProgressBar1.setValue(0);
-        
 
         int selectedItem = jComboBox1.getSelectedIndex();
         switch (selectedItem) {
             case 0:
-                Chart = new Chart(jPanelMean, "Priem. čas v systéme", "Priemerný čas zákaznika v systéme", "Počet replikácií", "Priemer v minútach");             
+                Chart = new Chart(jPanelMean, "Priem. čas v systéme", "Priemerný čas zákaznika v systéme", "Počet replikácií", "Priemer v minútach");
                 jTabbedPane1.setEnabledAt(1, false);
                 jTabbedPane1.setEnabledAt(2, false);
                 jTabbedPane1.setSelectedIndex(0);
@@ -703,7 +712,7 @@ public class App extends javax.swing.JDialog {
                     startSimulationThread(minibuses, operators, replications, percents, selectedItem);
                     setAfterSimulation();
                 });
-                t.start();           
+                t.start();
                 break;
             case 1:
                 Chart = new Chart(jPanelMinibusesFixedChart, "Priem. čas v systéme od počtu pracovníkov", "Priemerný čas zákaznika v systéme - fixný počet autobusov", "Počet pracovníkov", "Priemer v minútach");
@@ -724,7 +733,7 @@ public class App extends javax.swing.JDialog {
                 t2.start();
                 break;
             case 2:
-                 Chart = new Chart(jPanelOperatorsFixedChart, "Priem. čas v systéme od počtu minibusov", "Priemerný čas zákaznika v systéme - fixný počet praconíkov", "Počet minibusov", "Priemer v minútach");
+                Chart = new Chart(jPanelOperatorsFixedChart, "Priem. čas v systéme od počtu minibusov", "Priemerný čas zákaznika v systéme - fixný počet praconíkov", "Počet minibusov", "Priemer v minútach");
                 jTabbedPane1.setEnabledAt(0, false);
                 jTabbedPane1.setEnabledAt(1, false);
                 jTabbedPane1.setSelectedIndex(2);
@@ -791,6 +800,20 @@ public class App extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
+        if (AirCarCore != null) {
+            if (jCheckBox1.isSelected()) {
+                AirCarCore.setMonitoring(false);
+            } else {
+                AirCarCore.setMonitoring(true);
+            }
+        }
+    }//GEN-LAST:event_jCheckBox1StateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -834,12 +857,13 @@ public class App extends javax.swing.JDialog {
     }
 
     private void startSimulationThread(int minibuses, int operators, int replications, int percents, int selectedItem) {
-            AirCarCore = new AirCarCore(minibuses, operators, true);
-            Command c = createCommand(AirCarCore, percents, selectedItem);
-            AirCarCore.setCommand(c);
-            AirCarCore.setStep(jSliderSpeed.getValue());
-            AirCarCore.setWait(jSliderWaiting.getValue());
-            AirCarCore.doReprications(replications, SimulationTime);
+        AirCarCore = new AirCarCore(minibuses, operators, true);
+        Command c = createCommand(AirCarCore, percents, selectedItem);
+        AirCarCore.setCommand(c);
+        AirCarCore.setStep(jSliderSpeed.getValue());
+        AirCarCore.setWait(jSliderWaiting.getValue());
+        AirCarCore.setMonitoring(!jCheckBox1.isSelected());
+        AirCarCore.doReprications(replications, SimulationTime);
     }
 
     private void setUp() {
@@ -947,35 +971,38 @@ public class App extends javax.swing.JDialog {
                     jLabelProgress.setText((int) AirCarCore.getCurrentExperiment() + "/" + (int) AirCarCore.getReplicationsCount());
                 }
 
-                jTextFieldArrivalCount.setText(Integer.toString((int) AirCarCore.getArrivalCustomersCount()));
-                jTextFieldDepartureCount.setText(Integer.toString((int) AirCarCore.getDepartureCustomersCount()));
+                if (AirCarCore.isMonitoring()) {
 
-                jTextFieldMean.setText((int) Math.floor((core.getResult() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getResult() % 60.0)) + " sec");
+                    jTextFieldArrivalCount.setText(Integer.toString((int) AirCarCore.getArrivalCustomersCount()));
+                    jTextFieldDepartureCount.setText(Integer.toString((int) AirCarCore.getDepartureCustomersCount()));
 
-                jTextFieldQueueT1.setText(Integer.toString(AirCarCore.getCustomerQueueT1Size()));
+                    jTextFieldMean.setText((int) Math.floor((core.getResult() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getResult() % 60.0)) + " sec");
 
-                jTextFieldQueueT2.setText(Integer.toString(AirCarCore.getCustomerQueueT2Size()));
+                    jTextFieldQueueT1.setText(Integer.toString(AirCarCore.getCustomerQueueT1Size()));
 
-                jTextFieldQueueAirCar.setText(Integer.toString(AirCarCore.getCustomerQueueRentalSize()));
+                    jTextFieldQueueT2.setText(Integer.toString(AirCarCore.getCustomerQueueT2Size()));
 
-                int i = AirCarCore.getFreeOperatorsCount();
-                jTextFieldFreeOperatorsCount.setText(Integer.toString(AirCarCore.getFreeOperatorsCount()));
+                    jTextFieldQueueAirCar.setText(Integer.toString(AirCarCore.getCustomerQueueRentalSize()));
 
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        DefTableModel.setRowCount(0);
-                        for (int i = 0; i < AirCarCore.getMiniBusesCount(); i++) {
-                            Vector<Object> data = new Vector<>();
-                            data.add(AirCarCore.getMinibus(i).getID());
-                            data.add(AirCarCore.getMinibus(i).getPosition());
-                            data.add(AirCarCore.getMinibus(i).getSize());
-                            DefTableModel.addRow(data);
+                    int i = AirCarCore.getFreeOperatorsCount();
+                    jTextFieldFreeOperatorsCount.setText(Integer.toString(AirCarCore.getFreeOperatorsCount()));
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            DefTableModel.setRowCount(0);
+                            for (int i = 0; i < AirCarCore.getMiniBusesCount(); i++) {
+                                Vector<Object> data = new Vector<>();
+                                data.add(AirCarCore.getMinibus(i).getID());
+                                data.add(AirCarCore.getMinibus(i).getPosition());
+                                data.add(AirCarCore.getMinibus(i).getSize());
+                                DefTableModel.addRow(data);
+                            }
                         }
-                    }
-                });
+                    });
 
-                jTextFieldInterval.setText(core.getInterval(AirCarCore.getCurrentExperiment()));
+                    jTextFieldInterval.setText(core.getInterval(AirCarCore.getCurrentExperiment()));
+                }
 
                 double firstReplication = core.getReplicationsCount() / 100 * cutPercents;
                 if (core.getCurrentExperiment() > firstReplication && core.isReplicationDone()) {

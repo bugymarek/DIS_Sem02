@@ -22,12 +22,14 @@ public class Stepper extends Event{
     @Override
     public void execute() {
         getCore().step();
+        if(getCore().isMonitoring()){
         try {
             Thread.sleep(getCore().getWait());
         } catch (InterruptedException ex) {
             Logger.getLogger(Stepper.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+            getCore().plainEvent(new Stepper(getCore(), getCore().getStep()));
         }
-        getCore().plainEvent(new Stepper(getCore(), getCore().getStep()));
     }
     
 }
