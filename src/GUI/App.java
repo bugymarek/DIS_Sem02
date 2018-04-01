@@ -713,7 +713,6 @@ public class App extends javax.swing.JDialog {
                 jTextFieldMinibus.setEnabled(false);
                 jTextFieldReplications.setEnabled(false);
                 jTextFieldOperators.setEnabled(true);
-
                 Thread t2 = new Thread(() -> {
                     int o = operators;
                     while (!Stop) {
@@ -725,8 +724,22 @@ public class App extends javax.swing.JDialog {
                 t2.start();
                 break;
             case 2:
-                jTextFieldOperators.setEnabled(false);
+                 Chart = new Chart(jPanelOperatorsFixedChart, "Priem. čas v systéme od počtu minibusov", "Priemerný čas zákaznika v systéme - fixný počet praconíkov", "Počet minibusov", "Priemer v minútach");
+                jTabbedPane1.setEnabledAt(0, false);
+                jTabbedPane1.setEnabledAt(1, false);
+                jTabbedPane1.setSelectedIndex(2);
                 jTextFieldMinibus.setEnabled(true);
+                jTextFieldReplications.setEnabled(false);
+                jTextFieldOperators.setEnabled(false);
+                Thread t3 = new Thread(() -> {
+                    int m = minibuses;
+                    while (!Stop) {
+                        startSimulationThread(m, operators, replications, percents, selectedItem);
+                        m++;
+                    }
+                    setAfterSimulation();
+                });
+                t3.start();
                 break;
         }
 
@@ -986,7 +999,14 @@ public class App extends javax.swing.JDialog {
                             }
                             break;
                         case 2:
-                            // to do
+                            if (core.getCurrentExperiment() == core.getReplicationsCount()) {
+                                Chart.addValueToSeries(0, AirCarCore.getMiniBusesCount(), AirCarCore.getCurrentMean() / 60.0);
+                                jTextFieldStatMeanOperatorsFixed.setText((int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
+                                jTextStatMinibusesCount.setText(Integer.toString(core.getMiniBusesCount()));
+                                AirCarCore.setMinMax();
+                                setMinMax(AirCarCore.getMinValue() / 60.0, AirCarCore.getMaxValue() / 60.0);
+                                Chart.changeRange(Min, Max);
+                            }
                             break;
                     }
                 }
