@@ -884,8 +884,6 @@ public class App extends javax.swing.JDialog {
     private AirCarCore AirCarCore;
     private DefaultTableModel DefTableModel;
     private Chart Chart;
-    private Chart ChartMinibusesFixed;
-    private Chart ChartOperatorsFixed;
     private double Min;
     private double Max;
     private boolean Stop = false;
@@ -1009,7 +1007,7 @@ public class App extends javax.swing.JDialog {
                     switch (selectedItem) {
                         case 0:
                             Chart.addValueToSeries(0, AirCarCore.getCurrentExperiment(), AirCarCore.getCurrentMean() / 60.0);
-                            jTextFieldStatMean.setText((int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
+                            jTextFieldStatMean.setText(String.format("%.3f min", core.getCurrentMean()/ 60.0) + " = " + (int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
                             jTextFieldStatInterval.setText(core.getInterval(AirCarCore.getCurrentExperiment()));
                             AirCarCore.setMinMax();
                             setMinMax(AirCarCore.getMinValue() / 60.0, AirCarCore.getMaxValue() / 60.0);
@@ -1018,7 +1016,7 @@ public class App extends javax.swing.JDialog {
                         case 1:
                             if (core.getCurrentExperiment() == core.getReplicationsCount()) {
                                 Chart.addValueToSeries(0, AirCarCore.getFreeOperatorsCount(), AirCarCore.getCurrentMean() / 60.0);
-                                jTextFieldStatMeanMinibusesFixed.setText((int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
+                                jTextFieldStatMeanMinibusesFixed.setText(String.format("%.3f min", core.getCurrentMean()/ 60.0) + " = " + (int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
                                 jTextFieldStatOperatorsCount.setText(Integer.toString(core.getFreeOperatorsCount()));
                                 AirCarCore.setMinMax();
                                 setMinMax(AirCarCore.getMinValue() / 60.0, AirCarCore.getMaxValue() / 60.0);
@@ -1028,7 +1026,7 @@ public class App extends javax.swing.JDialog {
                         case 2:
                             if (core.getCurrentExperiment() == core.getReplicationsCount()) {
                                 Chart.addValueToSeries(0, AirCarCore.getMiniBusesCount(), AirCarCore.getCurrentMean() / 60.0);
-                                jTextFieldStatMeanOperatorsFixed.setText((int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
+                                jTextFieldStatMeanOperatorsFixed.setText(String.format("%.3f min", core.getCurrentMean()/ 60.0) + " = " + (int) Math.floor((AirCarCore.getCurrentMean() / 60.0) % 60.0) + " min " + String.format("%.0f", (core.getCurrentMean() % 60.0)) + " sec");
                                 jTextStatMinibusesCount.setText(Integer.toString(core.getMiniBusesCount()));
                                 AirCarCore.setMinMax();
                                 setMinMax(AirCarCore.getMinValue() / 60.0, AirCarCore.getMaxValue() / 60.0);

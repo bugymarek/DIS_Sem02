@@ -38,7 +38,7 @@ public abstract class SimulationCore {
 
     public SimulationCore(boolean cooling) {
         this.CalendarEvents = new PriorityQueue<>();
-        this.GenSeeds = new Random(100);
+        this.GenSeeds = new Random();
         this.CurrentTime = 0;
         this.Command = null;
         this.Runnable = true;
@@ -58,7 +58,6 @@ public abstract class SimulationCore {
         for (double i = 1; i <= count; i++) {
             this.ReplicationDone = false;
             this.CurrentExperiment = i;
-            System.out.println(CurrentExperiment);
             beforeReplication();
             beforeSimulation();
             simulate(endSimulationTime);
@@ -66,13 +65,10 @@ public abstract class SimulationCore {
                 break;
             }
             afterSimulation();
-            //setAverages();
             if (this.Command != null && i % Modulo == 0) {
                 Command.run();
             }
         }
-        //getResultsForStatistics();
-
     }
 
     private void simulate(double endSimulationTime) {
@@ -176,7 +172,7 @@ public abstract class SimulationCore {
         this.Command = Command;
     }
 
-    public ExponentialDistribution getExponentialDistribution(double lampda) {
+        public ExponentialDistribution getExponentialDistribution(double lampda) {
         return new ExponentialDistribution(new Random(GenSeeds.nextInt()), lampda);
     }
 
@@ -192,10 +188,6 @@ public abstract class SimulationCore {
         return CurrentExperiment;
     }
 
-    private void getResultsForStatistics() {
-        Command.run();
-    }
-
     public double getEndSimulationTime() {
         return EndSimulationTime;
     }
@@ -207,11 +199,6 @@ public abstract class SimulationCore {
     private void resetInterval() {
         this.Average1 = 0.0;
         this.Average2 = 0.0;
-    }
-
-    private void setAverages() {
-        this.Average1 += getCurrentTime();
-        this.Average2 += Math.pow(getCurrentTime(), 2);
     }
 
     public double getAverage1() {

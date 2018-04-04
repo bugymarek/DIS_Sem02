@@ -22,7 +22,7 @@ public class Tests {
     public static void main(String[] args) {
        //mySimulationCoreTest();
         
-       testConstants();
+       //testConstants();
     }   
     
     public static void mySimulationCoreTest(){
